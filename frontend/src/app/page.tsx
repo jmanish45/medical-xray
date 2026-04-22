@@ -85,18 +85,18 @@ const techSteps = [
 ];
 
 /* ============================================
-   HERO — Before / After X-ray panel
+   HERO
    ============================================ */
 function HeroSection() {
   return (
-    <section className="relative min-h-[calc(100vh-64px)] flex items-center orb-bg overflow-hidden">
-      {/* ── Interactive DotGrid background ── */}
+    <section className="relative min-h-screen flex items-center orb-bg overflow-hidden">
+      {/* Interactive DotGrid background */}
       <div className="absolute inset-0 z-0 pointer-events-auto">
         <DotGrid
           dotSize={8}
           gap={27}
-          baseColor="#bbf7d0"
-          activeColor="#16a34a"
+          baseColor="#1F2937"
+          activeColor="#2563EB"
           proximity={230}
           shockRadius={240}
           shockStrength={5}
@@ -104,13 +104,13 @@ function HeroSection() {
           returnDuration={2}
         />
       </div>
-      {/* Soft white fade so content stays readable */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-white/90 via-white/70 to-white/30 pointer-events-none" />
+      {/* Dark fade overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/95 via-black/75 to-black/25 pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-16
                       grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-        {/* ── Left: Copy ── */}
+        {/* Left: Copy */}
         <div className="space-y-7">
           <div className="pill-badge fade-in-up">
             <Activity className="w-3 h-3" />
@@ -118,7 +118,7 @@ function HeroSection() {
           </div>
 
           <div className="fade-in-up fade-in-up-delay-1">
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight text-[oklch(0.14_0.02_275)]">
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight text-[#E5E7EB]">
               Clear X-Rays.
               <br />
               Better Learning.
@@ -127,14 +127,14 @@ function HeroSection() {
             </h1>
           </div>
 
-          <p className="text-lg text-[oklch(0.45_0.05_280)] leading-relaxed max-w-lg fade-in-up fade-in-up-delay-2">
+          <p className="text-lg text-[#9CA3AF] leading-relaxed max-w-lg fade-in-up fade-in-up-delay-2">
             Our AI removes noise while preserving anatomy, helping the next generation of doctors learn
             with clarity and confidence — without ever hallucinating or altering the underlying human anatomy.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 fade-in-up fade-in-up-delay-3">
             {["DICOM Support", "Zero-Cloud Privacy", "ICU-Ready"].map((tag) => (
-              <span key={tag} className="flex items-center gap-1.5 text-sm text-[oklch(0.44_0.22_155)] font-medium">
+              <span key={tag} className="flex items-center gap-1.5 text-sm text-[#22D3EE] font-medium">
                 <CheckCircle2 className="w-4 h-4" />
                 {tag}
               </span>
@@ -153,8 +153,8 @@ function HeroSection() {
                 id="hero-learn-btn"
                 variant="outline"
                 className="h-12 px-8 text-base rounded-full font-semibold gap-2
-                           border-[oklch(0.78_0.14_155)] text-[oklch(0.44_0.22_155)]
-                           hover:bg-[oklch(0.94_0.05_155)]"
+                           border-[#2563EB] text-[#22D3EE] bg-transparent
+                           hover:bg-[#1e3a5f] hover:border-[#22D3EE]"
               >
                 See How It Works
                 <ChevronRight className="w-4 h-4" />
@@ -163,58 +163,44 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* ── Right: Before / After X-ray panel ── */}
+        {/* Right: Before / After X-ray panel */}
         <div className="relative flex items-center justify-center">
-          {/* Soft glow behind panels */}
           <div
             className="absolute inset-0 rounded-3xl pointer-events-none"
             style={{
-              background:
-                "radial-gradient(ellipse at center, oklch(0.52 0.22 155 / 0.12) 0%, transparent 70%)",
+              background: "radial-gradient(ellipse at center, rgba(37,99,235,0.15) 0%, transparent 70%)",
             }}
           />
 
           {/* Floating card */}
           <div
-            className="relative w-full max-w-[520px] rounded-2xl p-4 fade-in-up fade-in-up-delay-2"
+            className="relative w-full max-w-[600px] rounded-2xl p-5 fade-in-up fade-in-up-delay-2"
             style={{
-              background: "rgba(255,255,255,0.80)",
+              background: "rgba(10,10,10,0.92)",
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)",
-              border: "1px solid rgba(22,163,74,0.15)",
-              boxShadow:
-                "0 24px 64px oklch(0.52 0.22 155 / 0.14), 0 4px 16px rgba(0,0,0,0.06)",
+              border: "1px solid rgba(37,99,235,0.20)",
+              boxShadow: "0 24px 64px rgba(37,99,235,0.15), 0 4px 16px rgba(0,0,0,0.6)",
             }}
           >
-            {/* Panel row */}
             <div className="grid grid-cols-2 gap-3">
-
               {/* Before */}
               <div className="relative rounded-xl overflow-hidden bg-black group">
-                {/* Label */}
                 <span
-                  className="absolute top-2 left-2 z-10 text-[10px] font-bold tracking-widest
-                             uppercase px-2.5 py-0.5 rounded-full"
+                  className="absolute top-2 left-2 z-10 text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full"
                   style={{
-                    background: "rgba(0,0,0,0.55)",
-                    color: "#86efac",
-                    border: "1px solid rgba(134,239,172,0.25)",
+                    background: "rgba(0,0,0,0.65)",
+                    color: "#22D3EE",
+                    color: "#E5E7EB",
+                    border: "1px solid rgba(0,0,0,0.3)",
                   }}
                 >
                   Before
                 </span>
-
-                <Image
-                  src="/xray-before.png"
-                  alt="Noisy X-ray before denoising"
-                  width={240}
-                  height={260}
+                <Image src="/xray-before.png" alt="Noisy X-ray before denoising"
+                  width={300} height={320}
                   className="w-full object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-300"
-                  style={{ filter: "brightness(0.9) contrast(1.05)" }}
-                  priority
-                />
-
-                {/* Subtle noise grain overlay */}
+                  style={{ filter: "brightness(0.9) contrast(1.05)" }} priority />
                 <div
                   className="absolute inset-0 pointer-events-none opacity-30"
                   style={{
@@ -226,41 +212,31 @@ function HeroSection() {
 
               {/* After */}
               <div className="relative rounded-xl overflow-hidden bg-black group">
-                {/* Label */}
                 <span
-                  className="absolute top-2 left-2 z-10 text-[10px] font-bold tracking-widest
-                             uppercase px-2.5 py-0.5 rounded-full"
+                  className="absolute top-2 left-2 z-10 text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full"
                   style={{
-                    background: "oklch(0.52 0.22 155 / 0.75)",
+                    background: "rgba(0,0,0,0.75)",
                     color: "#fff",
-                    border: "1px solid oklch(0.68 0.18 155 / 0.4)",
+                    border: "1px solid rgba(0,0,0,0.4)",
                   }}
                 >
                   After
                 </span>
-
-                <Image
-                  src="/xray-after.png"
-                  alt="Enhanced X-ray after AI denoising"
-                  width={240}
-                  height={260}
+                <Image src="/xray-after.png" alt="Enhanced X-ray after AI denoising"
+                  width={300} height={320}
                   className="w-full object-cover group-hover:opacity-95 transition-opacity duration-300"
-                  style={{ filter: "brightness(1.05) contrast(1.12) saturate(0.9)" }}
-                  priority
-                />
+                  style={{ filter: "brightness(1.05) contrast(1.12) saturate(0.9)" }} priority />
               </div>
             </div>
 
-            {/* Bottom swap bar */}
+            {/* Bottom bar */}
             <div className="mt-3 flex items-center justify-between px-2">
-              <span className="text-xs text-[oklch(0.55_0.04_280)] font-medium">
-                AI-Enhanced Comparison
-              </span>
+              <span className="text-xs text-[#6B7280] font-medium">AI-Enhanced Comparison</span>
               <div
                 className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
                 style={{
-                  background: "oklch(0.94 0.05 155)",
-                  color: "oklch(0.44 0.22 155)",
+                  background: "rgba(37,99,235,0.18)",
+                  color: "#22D3EE",
                 }}
               >
                 <ArrowLeftRight className="w-3 h-3" />
@@ -269,16 +245,16 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Floating badge — top right */}
+          {/* Floating badge */}
           <div
             className="absolute -top-3 -right-3 md:right-4 px-3 py-1.5 rounded-full text-xs font-bold
                        shadow-lg flex items-center gap-1.5 fade-in-up fade-in-up-delay-3"
             style={{
-              background: "linear-gradient(135deg, oklch(0.52 0.22 155), oklch(0.44 0.22 155))",
+              background: "linear-gradient(135deg, #2563EB, #1d4ed8)",
               color: "white",
             }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-white/80 pulse-dot" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] pulse-dot" />
             N2N U-Net Active
           </div>
         </div>
@@ -292,12 +268,12 @@ function HeroSection() {
    ============================================ */
 function StatsBar() {
   return (
-    <section className="py-8 border-y border-[oklch(0.91_0.015_285)] bg-white">
+    <section className="py-8 border-y border-[#1a1a1a] bg-black">
       <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((s) => (
           <div key={s.label} className="stat-card">
             <div className="text-3xl font-extrabold text-gradient mb-1">{s.value}</div>
-            <div className="text-sm text-[oklch(0.52_0.05_280)] font-medium">{s.label}</div>
+            <div className="text-sm text-[#6B7280] font-medium">{s.label}</div>
           </div>
         ))}
       </div>
@@ -316,10 +292,10 @@ function FeaturesSection() {
           <Star className="w-3 h-3" />
           Key Features
         </div>
-        <h2 className="text-4xl font-extrabold text-[oklch(0.14_0.02_275)] mb-4">
+        <h2 className="text-4xl font-extrabold text-[#E5E7EB] mb-4">
           Engineering Breakthroughs
         </h2>
-        <p className="text-[oklch(0.45_0.05_280)] max-w-xl mx-auto text-lg">
+        <p className="text-[#9CA3AF] max-w-xl mx-auto text-lg">
           Every feature is purpose-built for clinical reliability in demanding medical environments.
         </p>
       </div>
@@ -335,8 +311,8 @@ function FeaturesSection() {
               <div className="feature-icon mb-5">
                 <f.icon className="w-6 h-6" strokeWidth={1.8} />
               </div>
-              <h3 className="font-bold text-[oklch(0.14_0.02_275)] text-lg mb-2">{f.title}</h3>
-              <p className="text-[oklch(0.52_0.05_280)] text-sm leading-relaxed">{f.desc}</p>
+              <h3 className="font-bold text-[#E5E7EB] text-lg mb-2">{f.title}</h3>
+              <p className="text-[#9CA3AF] text-sm leading-relaxed">{f.desc}</p>
             </CardContent>
           </Card>
         ))}
@@ -350,17 +326,17 @@ function FeaturesSection() {
    ============================================ */
 function HowItWorksSection() {
   return (
-    <section className="py-24 bg-[oklch(0.97_0.01_285)] orb-bg">
+    <section className="py-24 bg-black orb-bg">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
           <div className="pill-badge mb-4 mx-auto w-fit">
             <Zap className="w-3 h-3" />
             The Pipeline
           </div>
-          <h2 className="text-4xl font-extrabold text-[oklch(0.14_0.02_275)] mb-4">
+          <h2 className="text-4xl font-extrabold text-[#E5E7EB] mb-4">
             How Denoise X Works
           </h2>
-          <p className="text-[oklch(0.45_0.05_280)] max-w-xl mx-auto text-lg">
+          <p className="text-[#9CA3AF] max-w-xl mx-auto text-lg">
             A three-stage clinical pipeline that guarantees safety, precision, and speed.
           </p>
         </div>
@@ -372,8 +348,7 @@ function HowItWorksSection() {
                 <div
                   className="hidden md:block absolute top-8 left-[calc(100%-0px)] w-full h-px"
                   style={{
-                    background:
-                      "linear-gradient(90deg, oklch(0.78 0.14 155 / 0.5), transparent)",
+                    background: "linear-gradient(90deg, rgba(37,99,235,0.5), transparent)",
                     zIndex: 0,
                   }}
                 />
@@ -382,8 +357,8 @@ function HowItWorksSection() {
                 <div className="text-5xl font-black text-gradient opacity-30 mb-4 leading-none">
                   {step.step}
                 </div>
-                <h3 className="font-bold text-[oklch(0.14_0.02_275)] text-xl mb-3">{step.title}</h3>
-                <p className="text-[oklch(0.52_0.05_280)] text-sm leading-relaxed">{step.desc}</p>
+                <h3 className="font-bold text-[#E5E7EB] text-xl mb-3">{step.title}</h3>
+                <p className="text-[#9CA3AF] text-sm leading-relaxed">{step.desc}</p>
               </div>
             </div>
           ))}
@@ -401,24 +376,23 @@ function CTASection() {
     <section className="py-24 px-6 md:px-12">
       <div className="max-w-4xl mx-auto text-center">
         <div className="gradient-border p-[1px] rounded-3xl">
-          <div className="bg-white rounded-3xl p-14 relative overflow-hidden">
+          <div className="bg-black rounded-3xl p-14 relative overflow-hidden">
             <div
               className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full pointer-events-none"
               style={{
-                background:
-                  "radial-gradient(circle, oklch(0.88 0.09 155 / 0.4) 0%, transparent 70%)",
+                background: "radial-gradient(circle, rgba(37,99,235,0.20) 0%, transparent 70%)",
               }}
             />
             <div className="relative z-10">
-              <Badge className="mb-6 bg-[oklch(0.94_0.05_155)] text-[oklch(0.44_0.22_155)] border-[oklch(0.88_0.09_155)] text-sm px-4 py-1">
+              <Badge className="mb-6 bg-[rgba(37,99,235,0.15)] text-[#22D3EE] border-[rgba(37,99,235,0.35)] text-sm px-4 py-1">
                 Ready to Enhance?
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-[oklch(0.14_0.02_275)] mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-[#E5E7EB] mb-6 leading-tight">
                 Start enhancing your
                 <br />
                 <span className="text-gradient">X-rays today</span>
               </h2>
-              <p className="text-[oklch(0.45_0.05_280)] text-lg mb-10 max-w-md mx-auto">
+              <p className="text-[#9CA3AF] text-lg mb-10 max-w-md mx-auto">
                 Upload your first DICOM or PNG file and see the difference Denoise X delivers in seconds.
               </p>
               <Link href="/denoise">
@@ -427,7 +401,7 @@ function CTASection() {
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
-              <p className="text-xs text-[oklch(0.65_0.04_280)] mt-6">
+              <p className="text-xs text-[#6B7280] mt-6">
                 ⚠️ For supplementary clinical decision support only. Always consult a qualified healthcare provider.
               </p>
             </div>
@@ -443,22 +417,22 @@ function CTASection() {
    ============================================ */
 function Footer() {
   return (
-    <footer className="border-t border-[oklch(0.91_0.015_285)] py-10 px-6 md:px-12">
+    <footer className="border-t border-[#1a1a1a] py-10 px-6 md:px-12 bg-black">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg btn-purple flex items-center justify-center">
             <Zap className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
           </div>
-          <span className="font-bold text-[oklch(0.14_0.02_275)]">
+          <span className="font-bold text-[#E5E7EB]">
             Denoise<span className="text-gradient"> X</span>
           </span>
         </div>
-        <p className="text-sm text-[oklch(0.55_0.04_280)]">
+        <p className="text-sm text-[#6B7280]">
           © 2026 Denoise X. Built with N2N + U-Net AI. For clinical decision support only.
         </p>
-        <div className="flex gap-6 text-sm text-[oklch(0.55_0.04_280)]">
-          <Link href="/about" className="hover:text-[oklch(0.52_0.22_155)] transition-colors">About</Link>
-          <Link href="/feedback" className="hover:text-[oklch(0.52_0.22_155)] transition-colors">Feedback</Link>
+        <div className="flex gap-6 text-sm text-[#6B7280]">
+          <Link href="/about" className="hover:text-[#22D3EE] transition-colors">About</Link>
+          <Link href="/feedback" className="hover:text-[#22D3EE] transition-colors">Feedback</Link>
         </div>
       </div>
     </footer>
@@ -481,5 +455,3 @@ export default function HomePage() {
     </>
   );
 }
-
-

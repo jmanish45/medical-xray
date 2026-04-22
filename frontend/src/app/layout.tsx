@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen bg-background antialiased">
         <Navbar />
-        <main className="pt-16">
+        <main>
           {children}
         </main>
       </body>
