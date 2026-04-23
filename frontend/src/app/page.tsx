@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,10 +17,10 @@ import {
   Star,
   ArrowRight,
   CheckCircle2,
-  ArrowLeftRight,
 } from "lucide-react";
 
-const DotGrid = dynamic(() => import("@/components/DotGrid"), { ssr: false });
+import SplitText from "@/components/SplitText";
+import MagicBento from "@/components/MagicBento";
 
 /* ============================================
    DATA
@@ -90,40 +89,37 @@ const techSteps = [
 function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center orb-bg overflow-hidden">
-      {/* Interactive DotGrid background */}
-      <div className="absolute inset-0 z-0 pointer-events-auto">
-        <DotGrid
-          dotSize={8}
-          gap={27}
-          baseColor="#1F2937"
-          activeColor="#2563EB"
-          proximity={230}
-          shockRadius={240}
-          shockStrength={5}
-          resistance={750}
-          returnDuration={2}
+      {/* Atmospheric backdrop */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_15%_20%,rgba(16,185,129,0.18),transparent_46%),radial-gradient(circle_at_85%_78%,rgba(20,184,166,0.18),transparent_38%)]" />
+
+      {/* Hero body illustration */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        <Image
+          src="/human_body_bg3.png"
+          alt="Human body diagnostic background"
+          fill
+          priority
+          className="object-cover object-center opacity-100"
         />
       </div>
-      {/* Dark fade overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/95 via-black/75 to-black/25 pointer-events-none" />
+
+      {/* Contrast and readability overlay */}
+      <div className="absolute inset-0 z-[2] bg-gradient-to-r from-black/80 via-black/30 to-transparent pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-16
-                      grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                      flex items-center">
 
-        {/* Left: Copy */}
-        <div className="space-y-7">
+        <div className="space-y-7 max-w-2xl">
           <div className="pill-badge fade-in-up">
             <Activity className="w-3 h-3" />
             AI-Powered Radiology
           </div>
 
           <div className="fade-in-up fade-in-up-delay-1">
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight text-[#E5E7EB]">
-              Clear X-Rays.
-              <br />
-              Better Learning.
-              <br />
-              <span className="text-gradient">Stronger Future.</span>
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight text-[#E5E7EB] flex flex-col items-start text-left">
+              <SplitText text="Clear X-Rays." className="block" delay={30} textAlign="left" />
+              <SplitText text="Better Learning." className="block" delay={30} textAlign="left" />
+              <SplitText text="Stronger Future." className="block text-gradient-split" delay={30} textAlign="left" />
             </h1>
           </div>
 
@@ -153,109 +149,13 @@ function HeroSection() {
                 id="hero-learn-btn"
                 variant="outline"
                 className="h-12 px-8 text-base rounded-full font-semibold gap-2
-                           border-[#2563EB] text-[#22D3EE] bg-transparent
-                           hover:bg-[#1e3a5f] hover:border-[#22D3EE]"
+                           border-emerald-500/60 text-emerald-300 bg-transparent
+                           hover:bg-emerald-900/40 hover:border-emerald-300"
               >
                 See How It Works
                 <ChevronRight className="w-4 h-4" />
               </Button>
             </Link>
-          </div>
-        </div>
-
-        {/* Right: Before / After X-ray panel */}
-        <div className="relative flex items-center justify-center">
-          <div
-            className="absolute inset-0 rounded-3xl pointer-events-none"
-            style={{
-              background: "radial-gradient(ellipse at center, rgba(37,99,235,0.15) 0%, transparent 70%)",
-            }}
-          />
-
-          {/* Floating card */}
-          <div
-            className="relative w-full max-w-[600px] rounded-2xl p-5 fade-in-up fade-in-up-delay-2"
-            style={{
-              background: "rgba(10,10,10,0.92)",
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
-              border: "1px solid rgba(37,99,235,0.20)",
-              boxShadow: "0 24px 64px rgba(37,99,235,0.15), 0 4px 16px rgba(0,0,0,0.6)",
-            }}
-          >
-            <div className="grid grid-cols-2 gap-3">
-              {/* Before */}
-              <div className="relative rounded-xl overflow-hidden bg-black group">
-                <span
-                  className="absolute top-2 left-2 z-10 text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full"
-                  style={{
-                    background: "rgba(0,0,0,0.65)",
-                    color: "#22D3EE",
-                    color: "#E5E7EB",
-                    border: "1px solid rgba(0,0,0,0.3)",
-                  }}
-                >
-                  Before
-                </span>
-                <Image src="/xray-before.png" alt="Noisy X-ray before denoising"
-                  width={300} height={320}
-                  className="w-full object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-300"
-                  style={{ filter: "brightness(0.9) contrast(1.05)" }} priority />
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-30"
-                  style={{
-                    backgroundImage:
-                      "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E\")",
-                  }}
-                />
-              </div>
-
-              {/* After */}
-              <div className="relative rounded-xl overflow-hidden bg-black group">
-                <span
-                  className="absolute top-2 left-2 z-10 text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full"
-                  style={{
-                    background: "rgba(0,0,0,0.75)",
-                    color: "#fff",
-                    border: "1px solid rgba(0,0,0,0.4)",
-                  }}
-                >
-                  After
-                </span>
-                <Image src="/xray-after.png" alt="Enhanced X-ray after AI denoising"
-                  width={300} height={320}
-                  className="w-full object-cover group-hover:opacity-95 transition-opacity duration-300"
-                  style={{ filter: "brightness(1.05) contrast(1.12) saturate(0.9)" }} priority />
-              </div>
-            </div>
-
-            {/* Bottom bar */}
-            <div className="mt-3 flex items-center justify-between px-2">
-              <span className="text-xs text-[#6B7280] font-medium">AI-Enhanced Comparison</span>
-              <div
-                className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
-                style={{
-                  background: "rgba(37,99,235,0.18)",
-                  color: "#22D3EE",
-                }}
-              >
-                <ArrowLeftRight className="w-3 h-3" />
-                Denoise X Output
-              </div>
-            </div>
-          </div>
-
-          {/* Floating badge */}
-          <div
-            className="absolute -top-3 -right-3 md:right-4 px-3 py-1.5 rounded-full text-xs font-bold
-                       shadow-lg flex items-center gap-1.5 fade-in-up fade-in-up-delay-3"
-            style={{
-              background: "linear-gradient(135deg, #2563EB, #1d4ed8)",
-              color: "white",
-            }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] pulse-dot" />
-            N2N U-Net Active
           </div>
         </div>
       </div>
@@ -300,22 +200,25 @@ function FeaturesSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {features.map((f, i) => (
-          <Card
-            key={f.title}
-            className="glass-card glass-card-hover cursor-default border-0 p-0"
-            style={{ animationDelay: `${i * 0.08}s` }}
-          >
-            <CardContent className="p-7">
-              <div className="feature-icon mb-5">
-                <f.icon className="w-6 h-6" strokeWidth={1.8} />
-              </div>
-              <h3 className="font-bold text-[#E5E7EB] text-lg mb-2">{f.title}</h3>
-              <p className="text-[#9CA3AF] text-sm leading-relaxed">{f.desc}</p>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="flex justify-center w-full mx-auto">
+        <MagicBento 
+          cards={features.map((f) => ({
+            title: f.title,
+            description: f.desc,
+            icon: <f.icon className="w-6 h-6" strokeWidth={1.8} />
+          }))}
+          textAutoHide={false}
+          enableStars={true}
+          enableSpotlight={true}
+          enableBorderGlow={true}
+          enableTilt={true}
+          enableMagnetism={false}
+          clickEffect={true}
+          spotlightRadius={400}
+          particleCount={12}
+          glowColor="37, 99, 235"
+          disableAnimations={false}
+        />
       </div>
     </section>
   );

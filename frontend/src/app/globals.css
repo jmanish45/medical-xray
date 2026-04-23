@@ -143,6 +143,14 @@
   background-clip: text;
 }
 
+.text-gradient-split .split-char {
+  background: linear-gradient(135deg, #2563EB, #22D3EE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
 /* Dark glassmorphism cards */
 .glass-card {
   background: rgba(10, 10, 10, 0.92);
