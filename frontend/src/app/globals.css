@@ -120,14 +120,18 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     background-color: #000000;
     color: #E5E7EB;
     font-family: 'Inter', 'Geist', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-  }
-  html {
-    scroll-behavior: smooth;
+    overflow-x: hidden;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
 
@@ -209,6 +213,20 @@
   bottom: -100px;
   left: -100px;
   pointer-events: none;
+}
+@media (max-width: 640px) {
+  .orb-bg::before {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    right: -80px;
+  }
+  .orb-bg::after {
+    width: 200px;
+    height: 200px;
+    bottom: -60px;
+    left: -60px;
+  }
 }
 
 /* Animated gradient border */
@@ -398,6 +416,11 @@
 .stat-card:hover {
   border-color: #2563EB;
   box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
+}
+@media (max-width: 640px) {
+  .stat-card {
+    padding: 1rem 0.75rem;
+  }
 }
 
 /* Hero grid background */

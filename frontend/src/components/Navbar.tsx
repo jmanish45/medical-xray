@@ -150,13 +150,13 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden ml-1 text-[#9CA3AF] hover:text-white p-1.5"
+            className="md:hidden ml-1 text-[#9CA3AF] hover:text-white p-2.5 -mr-2"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? (
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             ) : (
-              <Menu className="w-5 h-5" />
+              <Menu className="w-6 h-6" />
             )}
           </button>
         </div>

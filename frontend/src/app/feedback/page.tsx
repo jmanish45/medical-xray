@@ -63,7 +63,7 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black orb-bg flex items-center justify-center px-4 py-24">
+    <div className="min-h-screen bg-black orb-bg flex items-center justify-center px-4 py-20 sm:py-24">
       <div
         className="fixed inset-0 pointer-events-none z-0"
         style={{
@@ -80,16 +80,16 @@ export default function FeedbackPage() {
         className="relative z-10 w-full max-w-2xl"
       >
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold text-[#E5E7EB] mb-3">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#E5E7EB] mb-2 sm:mb-3">
             We Value Your Feedback
           </h1>
-          <p className="text-[#9CA3AF]">
+          <p className="text-sm sm:text-base text-[#9CA3AF]">
             Help us improve Denoise X by sharing your thoughts
           </p>
         </div>
 
         <div
-          className="rounded-3xl p-8 md:p-10"
+          className="rounded-3xl p-6 sm:p-8 md:p-10"
           style={{
             background: "rgba(10,10,10,0.92)",
             backdropFilter: "blur(24px)",

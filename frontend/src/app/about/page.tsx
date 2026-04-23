@@ -113,21 +113,21 @@ export default function AboutPage() {
     <div className="min-h-screen bg-[#0B0F14]">
 
       {/* Hero */}
-      <section className="relative py-20 pt-28 px-6 md:px-12 orb-bg hero-grid overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="relative py-14 sm:py-20 pt-24 sm:pt-28 px-4 sm:px-6 md:px-12 orb-bg hero-grid overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           <div className="space-y-6">
             <div className="pill-badge">
               <BookOpen className="w-3 h-3" />
               About Denoise X
             </div>
-            <h1 className="text-5xl font-extrabold text-[#E5E7EB] leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E5E7EB] leading-tight">
               Empowering Medical
               <br />
               <span className="text-gradient">Professionals</span>
               <br />
               with Clinical AI
             </h1>
-            <p className="text-lg text-[#9CA3AF] leading-relaxed max-w-lg">
+            <p className="text-base sm:text-lg text-[#9CA3AF] leading-relaxed max-w-lg">
               {mission.body.slice(0, 220)}…
             </p>
             <Link href="/denoise">
@@ -207,32 +207,32 @@ export default function AboutPage() {
       </section>
 
       {/* Mission */}
-      <section className="py-20 px-6 md:px-12 bg-[#0d131a]">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12 bg-[#0d131a]">
         <div className="max-w-4xl mx-auto text-center">
           <div className="pill-badge mb-5 mx-auto w-fit">
             <FlaskConical className="w-3 h-3" />
             Our Mission
           </div>
-          <h2 className="text-4xl font-extrabold text-[#E5E7EB] mb-8">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#E5E7EB] mb-6 sm:mb-8">
             Built for Clinical Reality
           </h2>
           <div className="gradient-border p-[1px] rounded-2xl">
-            <div className="bg-[#111827] rounded-2xl p-10">
-              <p className="text-[#9CA3AF] text-lg leading-loose">{mission.body}</p>
+            <div className="bg-[#111827] rounded-2xl p-6 sm:p-10">
+              <p className="text-[#9CA3AF] text-base sm:text-lg leading-loose">{mission.body}</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-20 px-6 md:px-12 bg-[#0B0F14]">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12 bg-[#0B0F14]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
             <div className="pill-badge mb-4 mx-auto w-fit">
               <Zap className="w-3 h-3" />
               Key Features
             </div>
-            <h2 className="text-4xl font-extrabold text-[#E5E7EB]">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#E5E7EB]">
               Engineering Breakthroughs
             </h2>
           </div>
@@ -240,7 +240,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
               <Card key={f.title} className="glass-card glass-card-hover border-0 p-0 h-full">
-                <CardContent className="p-7 h-full flex flex-col">
+                <CardContent className="p-5 sm:p-7 h-full flex flex-col">
                   <div className="feature-icon mb-5" style={{ background: `${f.color}20`, color: f.color }}>
                     <f.icon className="w-6 h-6" strokeWidth={1.8} />
                   </div>
@@ -254,17 +254,17 @@ export default function AboutPage() {
       </section>
 
       {/* Technical Pipeline */}
-      <section className="py-20 px-6 md:px-12 bg-[#0d131a]">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12 bg-[#0d131a]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <div className="pill-badge mb-4 mx-auto w-fit">
               <Brain className="w-3 h-3" />
               Technical Deep-Dive
             </div>
-            <h2 className="text-4xl font-extrabold text-[#E5E7EB]">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#E5E7EB]">
               The 4-Stage Pipeline
             </h2>
-            <p className="text-[#9CA3AF] mt-3 text-lg max-w-xl mx-auto">
+            <p className="text-[#9CA3AF] mt-3 text-base sm:text-lg max-w-xl mx-auto">
               Every step is deterministic, auditable, and designed with clinical safety as the primary constraint.
             </p>
           </div>
@@ -273,7 +273,7 @@ export default function AboutPage() {
             {pipelineStages.map((stage, i) => (
               <div
                 key={stage.step}
-                className="glass-card glass-card-hover rounded-2xl p-8 grid grid-cols-[auto_1fr] gap-6 items-start"
+                className="glass-card glass-card-hover rounded-2xl p-5 sm:p-8 grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-4 sm:gap-6 items-start"
               >
                 <div className="flex flex-col items-center gap-3">
                   <div className="text-4xl font-black text-gradient opacity-40 leading-none">{stage.step}</div>
@@ -295,14 +295,14 @@ export default function AboutPage() {
       </section>
 
       {/* Tech Specs */}
-      <section className="py-20 px-6 md:px-12 bg-[#0B0F14]">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12 bg-[#0B0F14]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <div className="pill-badge mb-4 mx-auto w-fit">
               <Users className="w-3 h-3" />
               Technical Specifications
             </div>
-            <h2 className="text-3xl font-extrabold text-[#E5E7EB]">Model & System Specs</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#E5E7EB]">Model & System Specs</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -317,10 +317,10 @@ export default function AboutPage() {
       </section>
 
       {/* Important Notice */}
-      <section className="py-20 px-6 md:px-12 bg-[#0d131a]">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12 bg-[#0d131a]">
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-2xl border-2 border-amber-500/30 bg-amber-500/5 p-10">
-            <div className="flex items-start gap-5">
+          <div className="rounded-2xl border-2 border-amber-500/30 bg-amber-500/5 p-6 sm:p-10">
+            <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
               <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
                 <AlertTriangle className="w-6 h-6 text-amber-400" />
               </div>

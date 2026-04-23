@@ -177,7 +177,7 @@ function ResultPanel({ label, accentColor, imageSrc, isEmpty, description, isSca
           )}
         </AnimatePresence>
 
-        <div className={`rounded-2xl overflow-hidden flex flex-col h-[60vh] min-h-[380px] relative z-10 border transition-all duration-300 bg-[#0a0a0a] ${isScanning ? "border-transparent" : "border-[#1a1a1a]"}`}>
+        <div className={`rounded-2xl overflow-hidden flex flex-col h-[42vh] sm:h-[55vh] md:h-[60vh] min-h-[280px] sm:min-h-[380px] relative z-10 border transition-all duration-300 bg-[#0a0a0a] ${isScanning ? "border-transparent" : "border-[#1a1a1a]"}`}>
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a] bg-black/60 backdrop-blur-md z-20 flex-shrink-0">
             <span className="font-bold text-sm text-[#E5E7EB]">{label}</span>
@@ -396,25 +396,25 @@ export default function DenoisePage() {
 
   return (
     <div className="min-h-screen bg-black orb-bg pb-20">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 pt-28 flex flex-col gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-8 sm:py-12 pt-24 sm:pt-28 flex flex-col gap-6 sm:gap-10">
 
         {/* Header */}
         <div>
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
             <div className="pill-badge"><Zap className="w-3 h-3" />AI Inference Engine</div>
             <BackendStatus online={backendOnline} />
           </div>
-          <h1 className="text-4xl font-extrabold text-[#E5E7EB] mb-3">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-[#E5E7EB] mb-2 sm:mb-3">
             Use <span className="text-gradient">Denoise X</span>
           </h1>
-          <p className="text-[#9CA3AF] text-lg max-w-2xl">
+          <p className="text-[#9CA3AF] text-sm sm:text-lg max-w-2xl">
             Upload your chest X-ray (DICOM, PNG, or JPEG) and the N2N U-Net engine delivers clinical outputs in seconds.
           </p>
         </div>
 
         {/* Upload & Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="glass-card rounded-2xl p-6 border border-[#1a1a1a]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8">
+          <div className="glass-card rounded-2xl p-4 sm:p-6 border border-[#1a1a1a]">
             <h2 className="font-bold text-[#E5E7EB] mb-4 flex items-center gap-2">
               <Upload className="w-5 h-5 text-[#22D3EE]" />Upload Image
             </h2>
@@ -437,7 +437,7 @@ export default function DenoisePage() {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="glass-card rounded-2xl p-6 space-y-4 border border-[#1a1a1a]">
+            <div className="glass-card rounded-2xl p-4 sm:p-6 space-y-3 sm:space-y-4 border border-[#1a1a1a]">
               <h3 className="font-bold text-[#E5E7EB] flex items-center gap-2 text-sm">
                 <Info className="w-4 h-4 text-[#22D3EE]" />Pipeline Steps
               </h3>
@@ -456,7 +456,7 @@ export default function DenoisePage() {
             <AnimatePresence>
               {isDone && result && (
                 <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
-                  className="glass-card rounded-2xl p-5 border border-[#1a1a1a]">
+                  className="glass-card rounded-2xl p-4 sm:p-5 border border-[#1a1a1a]">
                   <h3 className="font-bold text-[#E5E7EB] flex items-center gap-2 text-sm mb-4">
                     <BarChart3 className="w-4 h-4 text-[#22D3EE]" />Inference Report
                   </h3>
@@ -500,10 +500,10 @@ export default function DenoisePage() {
 
         {/* 3 Card View */}
         <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-bold text-[#E5E7EB] flex items-center gap-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-[#E5E7EB] flex items-center gap-3">
             <Maximize2 className="w-6 h-6 text-[#22D3EE]" />Analysis Results
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             <ResultPanel label="Original Image" accentColor="#60a5fa"
               imageSrc={localPreview} isEmpty={!showOriginal}
               description="Raw uploaded scan" isScanning={stage === "scanning_original"} />

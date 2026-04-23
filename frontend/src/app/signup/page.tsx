@@ -155,7 +155,7 @@ export default function SignUpPage() {
       >
         {/* Card */}
         <div
-          className="rounded-3xl p-8 md:p-10"
+          className="rounded-3xl p-6 sm:p-8 md:p-10"
           style={{
             background: "rgba(10,10,10,0.92)",
             backdropFilter: "blur(24px)",
