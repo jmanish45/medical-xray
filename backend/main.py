@@ -16,6 +16,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from inference_engine import run_pipeline, DenoiseResult
+from auth_routes import router as auth_router
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -56,15 +57,14 @@ app = FastAPI(
 # ── CORS — allow Next.js dev server and any production origin ─────────────────
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ── Auth routes ───────────────────────────────────────────────────────────────
+app.include_router(auth_router)
 
 
 # ── Response schema ───────────────────────────────────────────────────────────

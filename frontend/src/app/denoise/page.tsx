@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,45 +10,45 @@ import {
   ArrowRight, Info, BarChart3, RefreshCw, Wifi, WifiOff, Maximize2, Download,
 } from "lucide-react";
 import { denoiseImage, DenoiseResponse, checkHealth } from "@/lib/api";
+import { isAuthenticated } from "@/lib/auth";
 
 type AnimationStage = "idle" | "scanning_original" | "scanning_noise" | "done" | "error";
 
+import dicomParser from "dicom-parser";
+
 /* ============================================
    DICOM → canvas preview helper (client-side)
-   No extra library needed — reads raw pixel data
+   Uses dicom-parser to safely extract metadata
    ============================================ */
 async function dicomFileToDataUrl(file: File): Promise<string> {
   const buf = await file.arrayBuffer();
-  const bytes = new Uint8Array(buf);
+  const byteArray = new Uint8Array(buf);
 
-  // Locate pixel data tag (7FE0,0010)
-  let pixelOffset = -1;
-  for (let i = 0; i < bytes.length - 8; i++) {
-    if (bytes[i] === 0xE0 && bytes[i+1] === 0x7F &&
-        bytes[i+2] === 0x10 && bytes[i+3] === 0x00) {
-      pixelOffset = i + 8;
-      break;
-    }
-    if (bytes[i] === 0x7F && bytes[i+1] === 0xE0 &&
-        bytes[i+2] === 0x00 && bytes[i+3] === 0x10) {
-      pixelOffset = i + 8;
-      break;
-    }
-  }
-  if (pixelOffset === -1) throw new Error("Pixel data tag not found in DICOM");
-
-  // Try to read rows/cols tags (0028,0010) and (0028,0011)
-  let rows = 512, cols = 512;
-  for (let i = 128; i < pixelOffset - 8; i++) {
-    if (bytes[i] === 0x28 && bytes[i+1] === 0x00) {
-      const tag2 = (bytes[i+3] << 8) | bytes[i+2];
-      const vl = bytes[i+4] | (bytes[i+5] << 8) | (bytes[i+6] << 16) | (bytes[i+7] << 24);
-      if (tag2 === 0x0010 && vl === 2) rows = bytes[i+8] | (bytes[i+9] << 8);
-      if (tag2 === 0x0011 && vl === 2) cols = bytes[i+8] | (bytes[i+9] << 8);
-    }
+  let dataSet;
+  try {
+    dataSet = dicomParser.parseDicom(byteArray);
+  } catch (err) {
+    throw new Error("Invalid or unsupported DICOM file format");
   }
 
-  const pixelData = new Uint16Array(buf, pixelOffset, rows * cols);
+  // Extract dimensions (Tags: 0028,0010 and 0028,0011)
+  const rows = dataSet.uint16("x00280010") || 512;
+  const cols = dataSet.uint16("x00280011") || 512;
+
+  // Locate pixel data (Tag: 7FE0,0010)
+  const pixelDataElement = dataSet.elements.x7fe00010;
+  if (!pixelDataElement) {
+    throw new Error("Pixel data tag not found in DICOM");
+  }
+
+  // Safely get the pixel data array offset and length
+  const pixelData = new Uint16Array(
+    buf,
+    pixelDataElement.dataOffset,
+    pixelDataElement.length / 2
+  );
+
+  // Normalize 16-bit values to 8-bit for canvas display
   let minVal = 65535, maxVal = 0;
   for (let i = 0; i < pixelData.length; i++) {
     if (pixelData[i] < minVal) minVal = pixelData[i];
@@ -56,16 +57,19 @@ async function dicomFileToDataUrl(file: File): Promise<string> {
   const range = maxVal - minVal || 1;
 
   const canvas = document.createElement("canvas");
-  canvas.width = cols; canvas.height = rows;
+  canvas.width = cols;
+  canvas.height = rows;
   const ctx = canvas.getContext("2d")!;
   const imgData = ctx.createImageData(cols, rows);
+
   for (let i = 0; i < pixelData.length; i++) {
     const v = Math.round(((pixelData[i] - minVal) / range) * 255);
-    imgData.data[i*4]   = v;
-    imgData.data[i*4+1] = v;
-    imgData.data[i*4+2] = v;
-    imgData.data[i*4+3] = 255;
+    imgData.data[i * 4]     = v;
+    imgData.data[i * 4 + 1] = v;
+    imgData.data[i * 4 + 2] = v;
+    imgData.data[i * 4 + 3] = 255;
   }
+  
   ctx.putImageData(imgData, 0, 0);
   return canvas.toDataURL("image/png");
 }
@@ -304,6 +308,18 @@ function BackendStatus({ online }: { online: boolean | null }) {
    DENOISE PAGE
    ============================================ */
 export default function DenoisePage() {
+  const router = useRouter();
+  const [authChecked, setAuthChecked] = useState(false);
+
+  // ── Auth gate: redirect to sign-in if not authenticated ──
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      router.replace("/signin?redirect=/denoise");
+    } else {
+      setAuthChecked(true);
+    }
+  }, [router]);
+
   const [file, setFile] = useState<File | null>(null);
   const [localPreview, setLocalPreview] = useState<string | null>(null);
   const [stage, setStage] = useState<AnimationStage>("idle");
@@ -316,7 +332,7 @@ export default function DenoisePage() {
     catch { setBackendOnline(false); }
   }, []);
 
-  useEffect(() => { checkBackend(); }, [checkBackend]);
+  useEffect(() => { if (authChecked) checkBackend(); }, [authChecked, checkBackend]);
 
   const handleFile = async (f: File) => {
     setFile(f);
@@ -365,6 +381,18 @@ export default function DenoisePage() {
   const showOriginal = stage !== "idle";
   const showNoise = stage === "scanning_noise" || stage === "done";
   const showEnhanced = stage === "done";
+
+  // Show nothing while checking auth (prevents flash)
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-8 h-8 rounded-full border-2 border-[#2563EB] border-t-transparent animate-spin" />
+          <p className="text-sm text-[#6B7280]">Checking authentication…</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black orb-bg pb-20">

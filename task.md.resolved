@@ -1,0 +1,67 @@
+# Denoise X — Auth System Progress
+
+> Feature: Sign Up / Sign In with MongoDB
+> Started: 2026-04-24
+
+---
+
+## Backend
+
+- [x] `backend/.env` — template with MONGODB_URI + JWT_SECRET placeholders written
+- [x] `backend/.env.example` — safe committed template created
+- [x] `backend/requirements.txt` — added motor, python-jose, passlib, python-dotenv, pymongo
+- [x] `backend/auth.py` — DB connection, password hashing, JWT logic, Pydantic models
+- [x] `backend/auth_routes.py` — POST /signup, POST /signin, GET /me endpoints
+- [x] `backend/main.py` — auth router included
+- [x] **pip install** — all packages installed successfully (motor 3.7.1, passlib 1.7.4, python-jose 3.5.0, pymongo 4.17.0, bcrypt 5.0.0)
+
+## Frontend
+
+- [x] `frontend/src/lib/auth.ts` — token helpers + API calls (signUp, signIn, getMe, signOut)
+- [x] `frontend/src/app/signup/page.tsx` — full registration page (profile type toggle: Student vs Professional)
+- [x] `frontend/src/app/signin/page.tsx` — full sign in page (username or email + password)
+- [x] `frontend/src/components/Navbar.tsx` — auth-aware (Sign In/Sign Up vs username pill + Sign Out) + mobile hamburger menu
+
+---
+
+## Implementation Notes
+
+### MongoDB Schema (collection: `users`)
+```json
+{
+  "username": "dr_manish",
+  "email": "manish@aiims.edu",
+  "password_hash": "<bcrypt>",
+  "profile_type": "student | pg_resident | junior_doctor | fellow | educator",
+  "college_name": "AIIMS Delhi",
+  "professional_role": "pg_resident",
+  "created_at": "ISODate"
+}
+```
+
+### API Endpoints Added
+| Method | Route | Purpose |
+|--------|-------|---------|
+| POST | `/api/auth/signup` | Register new user → returns JWT |
+| POST | `/api/auth/signin` | Login (username or email) → returns JWT |
+| GET | `/api/auth/me` | Get current user from Bearer token |
+
+### JWT Storage
+- Token stored in `localStorage` under key `denoisex_token`
+- Navbar reads from localStorage on mount to show correct state
+
+### Where to Put MongoDB Connection String
+Edit `backend/.env`:
+```
+MONGODB_URI=mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/denoisex?retryWrites=true&w=majority
+JWT_SECRET=any-long-random-string-here
+JWT_EXPIRE_MINUTES=10080
+```
+
+---
+
+## Next Up (Backlog)
+- [ ] Feedback page implementation
+- [ ] Show U-Net output card in results
+- [ ] Batch upload support
+- [ ] Route protection for /denoise (redirect to signin if not logged in)
