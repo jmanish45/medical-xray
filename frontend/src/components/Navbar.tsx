@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { Zap, LogOut, GraduationCap, Menu, X, UserCircle2 } from "lucide-react";
+import { Zap, LogOut, GraduationCap, MoreVertical, X, UserCircle2 } from "lucide-react";
 import { isAuthenticated, getToken, signOut } from "@/lib/auth";
 
 const NAV_LINKS = [
@@ -123,40 +123,26 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <>
-              <Link href="/signin">
-                <button
-                  id="nav-signin"
-                  className="text-sm font-medium text-[#9CA3AF] hover:text-white transition-colors px-3 py-1.5 rounded-xl hover:bg-white/5"
-                >
-                  Sign In
-                </button>
-              </Link>
-              <Link href="/signup">
-                <button
-                  id="nav-signup"
-                  className="text-sm font-semibold px-4 py-1.5 rounded-xl transition-all duration-200 hover:scale-105"
-                  style={{
-                    background: "#ffffff",
-                    color: "#000000",
-                    boxShadow: "0 2px 8px rgba(255,255,255,0.15)",
-                  }}
-                >
-                  Sign Up
-                </button>
-              </Link>
-            </>
+            <Link href="/signin">
+              <button
+                id="nav-signin"
+                className="text-sm font-medium text-[#9CA3AF] hover:text-white transition-colors px-3 py-1.5 rounded-xl hover:bg-white/5"
+              >
+                Sign In
+              </button>
+            </Link>
           )}
 
-          {/* Mobile hamburger */}
+          {/* Mobile menu toggle */}
           <button
-            className="md:hidden ml-1 text-[#9CA3AF] hover:text-white p-2.5 -mr-2"
+            className="md:hidden ml-1 text-[#9CA3AF] hover:text-white p-2 -mr-1"
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
           >
             {menuOpen ? (
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             ) : (
-              <Menu className="w-6 h-6" />
+              <MoreVertical className="w-5 h-5" />
             )}
           </button>
         </div>
